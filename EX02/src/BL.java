@@ -44,23 +44,14 @@ public class BL implements IBL {
 
     @Override
     public List<Customer> popularCustomers() {
-//        return DataSource.allCustomers.stream()
-//                                    .filter(p-> p.getTier()==3)
-//                                    .collect(toList());
-//        List<Customer> custumer=DataSource.allCustomers.stream()
-//                                    .filter(p-> p.getTier()==3)
-//                                    .collect(toList());
-//
-//        Map<Long,Integer> countMap = DataSource.allOrders.stream()
-//                .collect(Collectors.groupingBy(p -> p.getOrderId(),Collectors
-//                .counting()));
-        List<Customer> customers = DataSource.allCustomers.stream()
-                                   .filter(p-> p.getTier()==3)
-                                   .collect(toList());
+
+        return DataSource.allCustomers.stream()
+                .filter(p-> p.getTier()==3)
+                .filter(c->getCustomerOrders(c.getId()).size()>10)
+                .sorted(Comparator.comparing(Customer::getId))
+               .collect(toList());
 
 
-
-return null;
     }
 
     @Override
@@ -173,7 +164,25 @@ return null;
 
     @Override
     public List<Customer> ThreeTierCustomerWithMaxOrders() {
-        
+        int maxi =DataSource.allCustomers.stream()
+                .filter(p->p.getTier() ==3)
+                .collect(toMap(e->e.getId(),e->getCustomerOrders(e.getId()).size()))
+                .entrySet()
+                .stream()
+                .max(Comparator.comparing(Map.Entry::getValue))
+                .get()
+                .getValue();
+
+        return DataSource.allCustomers.stream()
+                .filter(p->p.getTier() ==3)
+                .collect(toMap(identity(),e->getCustomerOrders(e.getId()).size()))
+                .entrySet()
+                .stream()
+                .filter(e->e.getValue()==maxi)
+                .map(e->e.getKey())
+                .sorted(Comparator.comparing(Customer::getId))
+                .collect(toList());
+
 
     }
 
