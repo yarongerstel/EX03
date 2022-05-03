@@ -75,20 +75,20 @@ public class BL implements IBL {
 
     @Override
     public List<Product> getPopularOrderedProduct(int orderedtimes) {
-        return DataSource.allOrderProducts.stream()
+        //return DataSource.allOrderProducts.stream();
 
-
+        return null;
 
     }
 
     @Override
     public List<Product> getOrderProducts(long orderId)
     {
-        return DataSource.allOrderProducts.stream()
-                .filter(p -> p.getOrderId() == orderId)
-                .sorted(Comparator.comparing((OrderProduct::getProductId)))
-                .collect(toList());
-
+//        return DataSource.allOrderProducts.stream()
+//                .filter(p -> p.getOrderId() == orderId)
+//                .sorted(Comparator.comparing((OrderProduct::getProductId)))
+//                .collect(toList());
+        return null;
     }
 
     @Override
@@ -99,8 +99,23 @@ public class BL implements IBL {
 
     @Override
     public Product getMaxOrderedProduct() {
-        //To do
+        Integer a= DataSource.allOrderProducts.stream()
+                .collect(groupingBy(p ->p.getProductId()))
+                .entrySet()
+               .stream()
+                .collect(toMap(e->e.getKey(), e -> e.getValue().size()))
+                .entrySet()
+                .stream()
+                .max(Comparator.comparing(Map.Entry::getValue))
+                .get()
+                .getValue();
+        System.out.println(a);
+
+//        for (Map.Entry<Long, Integer> entry : map.entrySet()) {
+//            System.out.println(entry.getKey() + ":" + entry.getValue().toString());
+//        }
         return null;
+
 
     }
     @Override
