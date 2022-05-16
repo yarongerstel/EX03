@@ -98,7 +98,7 @@ public class Main {
                 "or: onion rings\n" +
                 "sa: salad\n" +
                 "fe: friedEgg");
-        // TODO: Add a Hamburger-Topping Factory and use it to create a decorated Hamburger
-        return null;
+
+        return HamburgerToppingFactory.addToppic(scanner.nextLine(),hamburger);
     }
 }
