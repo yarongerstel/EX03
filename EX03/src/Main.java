@@ -17,9 +17,9 @@ public class Main {
         if (choice.equals("f")){
             fileMenu(scanner);
         }
-//        if (choice.equals("h")){
-//            hamburgerMenu(scanner);
-//        }
+        if (choice.equals("h")){
+            hamburgerMenu(scanner);
+        }
     }
     public static FileDetails readFileDetails(String path) throws IOException {
         Map<String, FileDetails> files = new HashMap();
@@ -66,40 +66,39 @@ public class Main {
             }
         }
     }
-//
-//    public static void hamburgerMenu(Scanner scanner){
-//        System.out.println("Choose from the following hamburgers:\n" +
-//                "cl: classic\n" +
-//                "sp: spicy\n" +
-//                "la: lamb\n" +
-//                "hm: homemade");
-//        // TODO: Add a Hamburger Factory and use it to create a Hamburger
-//        Hamburger hamburger = null;
-//
-//        String choice="";
-//        while (!choice.equals("s")) {
-//            System.out.println("Choose from the following options:\n" +
-//                    "a: add topping\n" +
-//                    "s: serve");
-//            choice = scanner.nextLine();
-//            if (choice.equals("a")) {
-//                hamburger = toppingMenu(scanner, hamburger);
-//            }
-//            if (choice.equals("s")) {
-//                System.out.println(hamburger.serve());
-//
-//            }
-//        }
-//
-//
-//    }
-//    public static Hamburger toppingMenu(Scanner scanner, Hamburger hamburger){
-//        System.out.println("Choose from the following toppings:\n" +
-//                "ch: chips\n" +
-//                "or: onion rings\n" +
-//                "sa: salad\n" +
-//                "fe: friedEgg");
-//        // TODO: Add a Hamburger-Topping Factory and use it to create a decorated Hamburger
-//        return null;
-//    }
+
+    public static void hamburgerMenu(Scanner scanner){
+        System.out.println("Choose from the following hamburgers:\n" +
+                "cl: classic\n" +
+                "sp: spicy\n" +
+                "la: lamb\n" +
+                "hm: homemade");
+        Hamburger hamburger = HamburgerFactory.createHamburger(scanner.nextLine());
+
+        String choice="";
+        while (!choice.equals("s")) {
+            System.out.println("Choose from the following options:\n" +
+                    "a: add topping\n" +
+                    "s: serve");
+            choice = scanner.nextLine();
+            if (choice.equals("a")) {
+                hamburger = toppingMenu(scanner, hamburger);
+            }
+            if (choice.equals("s")) {
+                System.out.println(hamburger.serve());
+
+            }
+        }
+
+
+    }
+    public static Hamburger toppingMenu(Scanner scanner, Hamburger hamburger){
+        System.out.println("Choose from the following toppings:\n" +
+                "ch: chips\n" +
+                "or: onion rings\n" +
+                "sa: salad\n" +
+                "fe: friedEgg");
+        // TODO: Add a Hamburger-Topping Factory and use it to create a decorated Hamburger
+        return null;
+    }
 }
